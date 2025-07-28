@@ -868,8 +868,8 @@ function drawBlock(x, y, color) {
       blockSize - padding * 2,
       blockSize - padding * 2
     );
-  
 }
+
 
 function drawPiece(piece) {
   piece.shape.forEach((row, y) => {
