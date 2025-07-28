@@ -1091,34 +1091,41 @@ body {
 
 
 /* Tetris Page Styles - Much Larger Display */
+/* Tetris Page Styles - Fixed untuk GitHub Pages */
+
 #tetris-screen .page-screen {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 100vh; /* Gunakan viewport height */
+    max-height: 100vh; /* Batasi tinggi maksimum */
     overflow: hidden;
     padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .tetris-header {
     background: #1a1a1a;
     color: #9bbc0f;
-    padding: 4px 15px; /* Minimal header padding */
+    padding: 4px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Tidak boleh menyusut */
+    min-height: 30px; /* Minimum height untuk header */
     border-bottom: 1px solid #333;
+    box-sizing: border-box;
 }
 
 .tetris-title {
-    font-size: 15px; /* Very small title */
+    font-size: 15px;
     font-weight: bold;
 }
 
 .tetris-stats {
     display: flex;
     gap: 6px;
-    font-size: 8px; /* Very small stats */
+    font-size: 8px;
 }
 
 .stat {
@@ -1130,13 +1137,15 @@ body {
 
 .tetris-game {
     background: #2d5016;
-    flex: 1; /* Take most available space */
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px; /* Minimal padding */
+    padding: 5px;
     overflow: hidden;
-    min-height: 0;
+    min-height: 200px; /* Minimum height untuk game area */
+    max-height: calc(100vh - 120px); /* Sisakan ruang untuk header dan controls */
+    box-sizing: border-box;
 }
 
 #tetris-canvas {
@@ -1144,20 +1153,37 @@ body {
     border-radius: 4px;
     background: #0f0f0f;
     display: block;
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
+    /* Tetapkan ukuran canvas yang konsisten */
+    width: 320px !important;
+    height: 640px !important; /* Rasio 1:2 (standar Tetris) */
+    max-width: 90vw;
+    max-height: calc(100vh - 200px); /* Sisakan ruang untuk header dan controls */
 }
 
+/* Pastikan controls tetap terlihat */
 .tetris-controls {
-    display: flex;
+    display: flex !important;
     justify-content: center;
-    gap: 4px; /* Minimal gap */
-    padding: 4px 15px; /* Minimal padding */
+    gap: 4px;
+    padding: 8px 15px;
     background: #1a1a1a;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Tidak boleh menyusut */
+    min-height: 45px; /* Minimum height untuk controls */
     border-top: 1px solid #333;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10; /* Pastikan controls di atas */
+}
+
+.tetris-btn {
+    padding: 6px 12px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px;
+    transition: all 0.2s ease;
 }
 
 .tetris-btn:hover {
@@ -1172,12 +1198,110 @@ body {
 /* Minimize page controls */
 #tetris-screen .page-controls {
     margin-top: 0;
-    padding: 4px 20px; /* Minimal padding */
+    padding: 6px 20px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    display: flex !important;
+    background: #1a1a1a;
+    border-top: 1px solid #333;
 }
 
 #tetris-screen .page-btn {
-    padding: 4px 10px; /* Very small buttons */
-    font-size: 9px; /* Small font */
+    padding: 4px 10px;
+    font-size: 9px;
+}
+
+/* Media queries untuk mobile responsiveness */
+@media (max-height: 700px) {
+    .tetris-header {
+        padding: 2px 10px;
+        min-height: 25px;
+    }
+    
+    .tetris-title {
+        font-size: 12px;
+    }
+    
+    .tetris-stats {
+        font-size: 7px;
+    }
+    
+    .tetris-controls {
+        display: flex
+        justify-content: center;
+        gap: 4px;
+        padding: 4px 10px;
+        background: #1a1a1a;
+        flex-shrink: 0;
+        border-top: 1px solid #333;
+        min-height: 35px;
+    }
+    
+    #tetris-canvas {
+        max-height: calc(100vh - 150px) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .tetris-game {
+        padding: 3px;
+    }
+    
+    .tetris-controls {
+        gap: 2px;
+        padding: 4px 5px;
+    }
+    
+    .tetris-btn {
+        padding: 4px 6px;
+        font-size: 9px;
+    }
+    
+    #tetris-canvas {
+        max-width: 85vw !important;
+        max-height: calc(100vh - 120px) !important;
+    }
+}
+
+@media (max-height: 500px) {
+    .tetris-header {
+        padding: 1px 8px;
+        min-height: 20px;
+    }
+    
+    .tetris-controls {
+        padding: 2px 5px;
+        min-height: 30px;
+    }
+    
+    #tetris-canvas {
+        max-height: calc(100vh - 80px) !important;
+    }
+    
+    .tetris-btn {
+        padding: 3px 5px;
+        font-size: 8px;
+    }
+}
+
+/* Pastikan tidak ada scroll pada body dan html */
+html, body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* Fix untuk browser yang menggunakan different box model */
+* {
+    box-sizing: border-box;
+}
+
+/* Pastikan semua flex containers bekerja dengan baik */
+#tetris-screen {
+    height: 100vh;
+    overflow: hidden;
 }
 
 
