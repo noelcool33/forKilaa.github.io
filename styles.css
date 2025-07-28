@@ -1098,8 +1098,7 @@ body {
 #tetris-screen .page-screen {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
+    height: 100%;
     padding: 0;
     margin: 0;
 }
@@ -1107,76 +1106,49 @@ body {
 .tetris-header {
     background: #1a1a1a;
     color: #9bbc0f;
-    padding: 8px 15px;
+    padding: 10px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-shrink: 0;
-    border-bottom: 1px solid #333;
-    min-height: 40px;
-}
-
-.tetris-title {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.tetris-stats {
-    display: flex;
-    gap: 15px;
-    font-size: 12px;
-}
-
-.stat {
-    color: #9bbc0f;
-    font-weight: bold;
-    text-align: center;
+    border-bottom: 2px solid #333;
 }
 
 .tetris-game {
-    background: #2d5016;
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: #0f0f0f;
     padding: 10px;
     overflow: hidden;
 }
 
 #tetris-canvas {
+    background-color: #0f0f0f;
     border: 3px solid #9bbc0f;
-    border-radius: 6px;
-    background: #0f0f0f;
     display: block;
-    /* Ukuran yang lebih wajar */
     width: 300px;
-    height: 500px;
-    max-width: 90vw;
-    max-height: calc(100vh - 180px); /* Sisakan ruang untuk header dan controls */
+    height: 600px;
+    image-rendering: pixelated;
 }
 
 .tetris-controls {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    padding: 12px 15px;
+    gap: 15px;
+    padding: 15px;
     background: #1a1a1a;
-    flex-shrink: 0;
-    border-top: 1px solid #333;
-    min-height: 50px;
+    border-top: 2px solid #333;
 }
 
 .tetris-btn {
-    padding: 8px 16px;
+    padding: 10px 20px;
     background: #4a90e2;
     color: white;
     border: none;
     border-radius: 6px;
-    cursor: pointer;
-    font-size: 12px;
     font-weight: bold;
-    transition: all 0.2s ease;
-    min-width: 60px;
+    cursor: pointer;
 }
 
 .tetris-btn:hover {
