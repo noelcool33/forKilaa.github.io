@@ -360,7 +360,7 @@ function startPhotoShow() {
       image: "./images/photo7.jpg",
     },
     {
-      text: "Tutor dapatin hati mu dong kilaa 💖",
+      text: "Tutor dapatin hati mu dong kilaa 💖. I have crush on youuu🫶✨",
       image: "./images/photo8.jpg",
     },
   ];
@@ -632,7 +632,7 @@ function loadSpotifyPlaylist(playlistNumber) {
         "https://open.spotify.com/embed/playlist/06gLtVtIEToe3u8Pi64jK1?si=c97d12edf2c9477f",
       name: "Birthday",
       description:
-        "ini adalah list Lagu untuk hari istimewa kamu ✨..btw kalo emang suka dengan playlist ini pencet logo spotify nya yah kilaa agar bisa dengar full song..isinya semua lagu ultah wkkkkk",
+        "list Lagu untuk hari istimewa kamu ✨..btw kalo emang suka dengan playlist ini pencet logo spotify nya yah kilaa agar bisa dengar full song..isinya semua lagu ultah wkkkkk",
     },
     2: {
       // Ganti dengan playlist kedua kamu
