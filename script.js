@@ -724,7 +724,7 @@ function initializeTetris() {
   const boardHeight = Math.floor(canvas.height / blockSize);
   
   // Initialize game state
-  tetrisGame = {
+  const tetrisGame = {
     canvas: canvas,
     ctx: ctx,
     board: createEmptyBoard(boardWidth, boardHeight),
@@ -858,18 +858,17 @@ function drawBlock(x, y, color) {
       blockSize - padding * 2
     );
   }
-}
-    // Inner border for more definition
-    ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
-    ctx.lineWidth = 1;
-    ctx.strokeRect(
-      x * blockSize + padding,
-      y * blockSize + padding,
-      blockSize - padding * 2,
-      blockSize - padding * 2
-    );
-}
 
+  // Inner border for more definition
+  ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
+  ctx.lineWidth = 1;
+  ctx.strokeRect(
+    x * blockSize + padding,
+    y * blockSize + padding,
+    blockSize - padding * 2,
+    blockSize - padding * 2
+  );
+}
 
 function drawPiece(piece) {
   piece.shape.forEach((row, y) => {
@@ -880,6 +879,34 @@ function drawPiece(piece) {
     });
   });
 }
+
+// Helper functions that need to be defined
+function getBlockColor(value) {
+  // Define your color mapping here
+  const colors = [
+    null,       // 0 - empty
+    '#FF0D72',  // 1 - I
+    '#0DC2FF',  // 2 - J
+    '#0DFF72',  // 3 - L
+    '#F538FF',  // 4 - O
+    '#FF8E0D',  // 5 - S
+    '#FFE138',  // 6 - T
+    '#3877FF'   // 7 - Z
+  ];
+  return colors[value] || '#FFFFFF';
+}
+
+function updateTetrisStats() {
+  // Implement your stats update logic here
+}
+
+function addTetrisListeners() {
+  // Implement your event listeners here
+}
+
+// Initialize the game
+let tetrisGame;
+initializeTetris();
 
 function getBlockColor(type) {
   const colors = {
