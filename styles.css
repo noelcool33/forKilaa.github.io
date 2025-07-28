@@ -1091,64 +1091,73 @@ body {
 
 
 /* Tetris Page Styles - Much Larger Display */
-
-
-/* Tetris Page Styles - Simple & Fixed */
-
 #tetris-screen .page-screen {
     display: flex;
     flex-direction: column;
     height: 100%;
+    overflow: hidden;
     padding: 0;
-    margin: 0;
 }
 
 .tetris-header {
     background: #1a1a1a;
     color: #9bbc0f;
-    padding: 10px 15px;
+    padding: 4px 15px; /* Minimal header padding */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #333;
+    flex-shrink: 0;
+    border-bottom: 1px solid #333;
+}
+
+.tetris-title {
+    font-size: 15px; /* Very small title */
+    font-weight: bold;
+}
+
+.tetris-stats {
+    display: flex;
+    gap: 6px;
+    font-size: 8px; /* Very small stats */
+}
+
+.stat {
+    color: #9bbc0f;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .tetris-game {
-    flex: 1;
+    background: #2d5016;
+    flex: 1; /* Take most available space */
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #0f0f0f;
-    padding: 10px;
+    padding: 5px; /* Minimal padding */
     overflow: hidden;
+    min-height: 0;
 }
 
 #tetris-canvas {
-    background-color: #0f0f0f;
-    border: 3px solid #9bbc0f;
+    border: 2px solid #9bbc0f;
+    border-radius: 4px;
+    background: #0f0f0f;
     display: block;
-    width: 300px;
-    height: 600px;
-    image-rendering: pixelated;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
 }
 
 .tetris-controls {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    padding: 15px;
+    gap: 4px; /* Minimal gap */
+    padding: 4px 15px; /* Minimal padding */
     background: #1a1a1a;
-    border-top: 2px solid #333;
-}
-
-.tetris-btn {
-    padding: 10px 20px;
-    background: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
+    flex-shrink: 0;
+    border-top: 1px solid #333;
 }
 
 .tetris-btn:hover {
@@ -1160,112 +1169,17 @@ body {
     transform: translateY(1px);
 }
 
-/* Page controls */
+/* Minimize page controls */
 #tetris-screen .page-controls {
     margin-top: 0;
-    padding: 8px 20px;
-    flex-shrink: 0;
-    background: #1a1a1a;
-    border-top: 1px solid #333;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+    padding: 4px 20px; /* Minimal padding */
 }
 
 #tetris-screen .page-btn {
-    padding: 6px 12px;
-    font-size: 11px;
-    background: #666;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 4px 10px; /* Very small buttons */
+    font-size: 9px; /* Small font */
 }
 
-/* Mobile responsive */
-@media (max-width: 480px) {
-    .tetris-header {
-        padding: 6px 10px;
-        min-height: 35px;
-    }
-    
-    .tetris-title {
-        font-size: 14px;
-    }
-    
-    .tetris-stats {
-        gap: 8px;
-        font-size: 10px;
-    }
-    
-    .tetris-game {
-        padding: 5px;
-    }
-    
-    #tetris-canvas {
-        width: 250px;
-        height: 400px;
-        max-width: 95vw;
-        max-height: calc(100vh - 160px);
-    }
-    
-    .tetris-controls {
-        gap: 5px;
-        padding: 8px 10px;
-        min-height: 45px;
-    }
-    
-    .tetris-btn {
-        padding: 6px 10px;
-        font-size: 10px;
-        min-width: 50px;
-    }
-    
-    #tetris-screen .page-controls {
-        padding: 6px 15px;
-    }
-}
-
-@media (max-height: 600px) {
-    .tetris-header {
-        padding: 4px 10px;
-        min-height: 30px;
-    }
-    
-    .tetris-title {
-        font-size: 13px;
-    }
-    
-    .tetris-stats {
-        font-size: 9px;
-    }
-    
-    #tetris-canvas {
-        height: 350px;
-        max-height: calc(100vh - 140px);
-    }
-    
-    .tetris-controls {
-        padding: 6px 10px;
-        min-height: 40px;
-    }
-    
-    .tetris-btn {
-        padding: 5px 8px;
-        font-size: 9px;
-    }
-}
-
-/* Pastikan tidak ada overflow */
-html, body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-* {
-    box-sizing: border-box;
-}
 
 /* Modal Styles */
 .modal {
