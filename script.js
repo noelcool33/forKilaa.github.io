@@ -360,7 +360,7 @@ function startPhotoShow() {
       image: "./images/photo7.jpg",
     },
     {
-      text: "Tutor dapatin hati mu dong kilaa 💖. I have crush on youuu🫶✨",
+      text: "Tutor dapatin hati mu dong kilaa 💖",
       image: "./images/photo8.jpg",
     },
   ];
@@ -632,7 +632,7 @@ function loadSpotifyPlaylist(playlistNumber) {
         "https://open.spotify.com/embed/playlist/06gLtVtIEToe3u8Pi64jK1?si=c97d12edf2c9477f",
       name: "Birthday",
       description:
-        "list Lagu untuk hari istimewa kamu ✨..btw kalo emang suka dengan playlist ini pencet logo spotify nya yah kilaa agar bisa dengar full song..isinya semua lagu ultah wkkkkk",
+        "ini adalah list Lagu untuk hari istimewa kamu ✨..btw kalo emang suka dengan playlist ini pencet logo spotify nya yah kilaa agar bisa dengar full song..isinya semua lagu ultah wkkkkk",
     },
     2: {
       // Ganti dengan playlist kedua kamu
@@ -679,71 +679,76 @@ function loadSpotifyPlaylist(playlistNumber) {
 function initializeTetris() {
   const canvas = document.getElementById("tetris-canvas");
   if (!canvas) return;
-  
+
   const ctx = canvas.getContext("2d");
-  
-  // Single, consistent canvas sizing logic
+
+  // Calculate much larger canvas size
   const gameContainer = document.querySelector(".tetris-game");
-  let canvasWidth, canvasHeight;
-  
   if (gameContainer) {
     const containerRect = gameContainer.getBoundingClientRect();
-    
-    // Reasonable maximum dimensions with proper margins
-    const maxWidth = Math.min(containerRect.width - 40, 400); // Max 400px width
-    const maxHeight = Math.min(containerRect.height - 40, 600); // Max 600px height
-    
-    // Maintain Tetris aspect ratio (1:2)
+
+    // Much larger maximum dimensions - use almost all available space
+    const maxWidth = containerRect.width - 15; // Only 15px margin
+    const maxHeight = containerRect.height - 15; // Only 15px margin
+
+    // Maintain aspect ratio (approximately 1:2 for Tetris)
     const aspectRatio = 1 / 2;
-    canvasWidth = Math.min(maxWidth, maxHeight * aspectRatio);
-    canvasHeight = canvasWidth / aspectRatio;
-    
-    // If height exceeds maximum, adjust
+    let canvasWidth = Math.min(maxWidth, maxHeight * aspectRatio);
+    let canvasHeight = canvasWidth / aspectRatio;
+
+    // If height is too tall, adjust based on height
     if (canvasHeight > maxHeight) {
       canvasHeight = maxHeight;
       canvasWidth = canvasHeight * aspectRatio;
     }
-    
+
     // Ensure minimum reasonable size
-    canvasWidth = Math.max(canvasWidth, 300);
-    canvasHeight = Math.max(canvasHeight, 500);
-    
+    canvasWidth = Math.max(canvasWidth, 500);
+    canvasHeight = Math.max(canvasHeight, 600);
+
+    canvas.width = Math.floor(canvasWidth);
+    canvas.height = Math.floor(canvasHeight);
+
+    console.log(
+      "Container size:",
+      containerRect.width,
+      "x",
+      containerRect.height
+    );
+    console.log("Canvas size:", canvas.width, "x", canvas.height);
   } else {
-    // Fallback dimensions
-    canvasWidth = 300;
-    canvasHeight = 500;
+    // Much larger fallback dimensions
+    canvas.width = 500; // Increased significantly
+    canvas.height = 600; // Increased significantly
   }
-  
-  // Set canvas dimensions
-  canvas.width = Math.floor(canvasWidth);
-  canvas.height = Math.floor(canvasHeight);
-  
-  // Calculate consistent block size
-  const blockSize = Math.floor(canvas.width / 10); // Always fit exactly 10 blocks
-  const boardWidth = 10;
+
+  // Calculate block size - ensure it's large enough to see clearly
+  const blockSize = Math.max(Math.floor(canvas.width / 10), 25); // Minimum 25px blocks
   const boardHeight = Math.floor(canvas.height / blockSize);
-  
-  // Initialize game state
-  const tetrisGame = {
+
+  tetrisGame = {
     canvas: canvas,
     ctx: ctx,
-    board: createEmptyBoard(boardWidth, boardHeight),
+    board: createEmptyBoard(10, boardHeight),
     currentPiece: null,
     gameRunning: false,
     dropTime: 0,
     lastTime: 0,
     dropInterval: 1000,
     blockSize: blockSize,
-    boardWidth: boardWidth,
+    boardWidth: 10,
     boardHeight: boardHeight,
   };
-  
+
   console.log(
-    "Canvas size:", canvas.width, "x", canvas.height,
-    "Block size:", blockSize,
-    "Board:", tetrisGame.boardWidth, "x", tetrisGame.boardHeight
+    "Block size:",
+    blockSize,
+    "Board:",
+    tetrisGame.boardWidth,
+    "x",
+    tetrisGame.boardHeight
   );
-  
+
   updateTetrisStats();
   drawTetrisBoard();
   addTetrisListeners();
@@ -765,13 +770,13 @@ function drawTetrisBoard() {
 
   const { ctx, canvas, board, blockSize } = tetrisGame;
 
-  // Clear canvas
+  // Clear canvas with proper background
   ctx.fillStyle = "#0a0a0a";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Draw grid lines
+  // Draw more visible grid lines for larger canvas
   ctx.strokeStyle = "#333";
-  ctx.lineWidth = 1;
+  ctx.lineWidth = 1; // Thicker lines for better visibility
 
   // Vertical lines
   for (let x = 0; x <= tetrisGame.boardWidth; x++) {
@@ -803,19 +808,19 @@ function drawTetrisBoard() {
     drawPiece(tetrisGame.currentPiece);
   }
 
-  // Draw border
+  // Draw prominent border around play area
   ctx.strokeStyle = "#9bbc0f";
-  ctx.lineWidth = 3;
-  ctx.strokeRect(1, 1, canvas.width - 2, canvas.height - 2);
+  ctx.lineWidth = 4; // Much thicker border
+  ctx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
 }
 
 function drawBlock(x, y, color) {
   if (!tetrisGame) return;
 
   const { ctx, blockSize } = tetrisGame;
-  const padding = Math.max(1, Math.floor(blockSize * 0.05));
+  const padding = Math.max(2, Math.floor(blockSize * 0.08)); // Larger padding for bigger blocks
 
-  // Main block
+  // Main block with rounded corners effect
   ctx.fillStyle = color;
   ctx.fillRect(
     x * blockSize + padding,
@@ -824,12 +829,12 @@ function drawBlock(x, y, color) {
     blockSize - padding * 2
   );
 
-  // 3D effect for blocks larger than 15px
-  if (blockSize > 15) {
-    const effectSize = Math.max(1, Math.floor(blockSize * 0.1));
+  // Enhanced 3D effect for larger blocks
+  if (blockSize > 20) {
+    const effectSize = Math.max(2, Math.floor(blockSize * 0.12));
 
-    // Highlight (top and left edges)
-    ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
+    // Highlight (top and left edges) - brighter for better visibility
+    ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
     ctx.fillRect(
       x * blockSize + padding,
       y * blockSize + padding,
@@ -843,31 +848,31 @@ function drawBlock(x, y, color) {
       blockSize - padding * 2
     );
 
-    // Shadow (bottom and right edges)
-    ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+    // Shadow (bottom and right edges) - darker for better contrast
+    ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
     ctx.fillRect(
       x * blockSize + padding,
-      (y + 1) * blockSize - padding - effectSize,
+      y * blockSize + blockSize - padding - effectSize,
       blockSize - padding * 2,
       effectSize
     );
     ctx.fillRect(
-      (x + 1) * blockSize - padding - effectSize,
+      x * blockSize + blockSize - padding - effectSize,
       y * blockSize + padding,
       effectSize,
+      blockSize - padding * 2
+    );
+
+    // Inner border for more definition
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(
+      x * blockSize + padding,
+      y * blockSize + padding,
+      blockSize - padding * 2,
       blockSize - padding * 2
     );
   }
-
-  // Inner border for more definition
-  ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
-  ctx.lineWidth = 1;
-  ctx.strokeRect(
-    x * blockSize + padding,
-    y * blockSize + padding,
-    blockSize - padding * 2,
-    blockSize - padding * 2
-  );
 }
 
 function drawPiece(piece) {
@@ -879,34 +884,6 @@ function drawPiece(piece) {
     });
   });
 }
-
-// Helper functions that need to be defined
-function getBlockColor(value) {
-  // Define your color mapping here
-  const colors = [
-    null,       // 0 - empty
-    '#FF0D72',  // 1 - I
-    '#0DC2FF',  // 2 - J
-    '#0DFF72',  // 3 - L
-    '#F538FF',  // 4 - O
-    '#FF8E0D',  // 5 - S
-    '#FFE138',  // 6 - T
-    '#3877FF'   // 7 - Z
-  ];
-  return colors[value] || '#FFFFFF';
-}
-
-function updateTetrisStats() {
-  // Implement your stats update logic here
-}
-
-function addTetrisListeners() {
-  // Implement your event listeners here
-}
-
-// Initialize the game
-let tetrisGame;
-initializeTetris();
 
 function getBlockColor(type) {
   const colors = {
