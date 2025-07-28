@@ -677,39 +677,11 @@ function loadSpotifyPlaylist(playlistNumber) {
 
 // Tetris Game Functions
 function initializeTetris() {
-    const canvas = document.getElementById('tetris-canvas');
-    if (!canvas) return;
+  const canvas = document.getElementById("tetris-canvas");
+  if (!canvas) return;
 
-    // Set fixed dimensions
-    canvas.width = 300;
-    canvas.height = 600;
-    const ctx = canvas.getContext('2d');
-    const blockSize = 30; // Fixed size for clear blocks
+  const ctx = canvas.getContext("2d");
 
-    tetrisGame = {
-        canvas: canvas,
-        ctx: ctx,
-        board: createEmptyBoard(10, 20),
-        currentPiece: null,
-        gameRunning: false,
-        dropTime: 0,
-        lastTime: 0,
-        dropInterval: 1000,
-        blockSize: blockSize,
-        boardWidth: 10,
-        boardHeight: 20
-    };
-
-    console.log('Tetris initialized', {
-        width: canvas.width,
-        height: canvas.height,
-        blockSize: blockSize
-    });
-
-    updateTetrisStats();
-    drawTetrisBoard();
-    addTetrisListeners();
-}
   // Calculate much larger canvas size
   const gameContainer = document.querySelector(".tetris-game");
   if (gameContainer) {
@@ -794,49 +766,43 @@ function createEmptyBoard(width, height) {
 }
 
 function drawTetrisBoard() {
-    if (!tetrisGame) return;
+  if (!tetrisGame) return;
 
-    const { ctx, canvas, board, blockSize } = tetrisGame;
+  const { ctx, canvas, board, blockSize } = tetrisGame;
 
-    // Clear canvas with dark background
-    ctx.fillStyle = "#0f0f0f";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // Clear canvas with proper background
+  ctx.fillStyle = "#0a0a0a";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw visible grid lines
-    ctx.strokeStyle = "#444";
-    ctx.lineWidth = 1;
+  // Draw more visible grid lines for larger canvas
+  ctx.strokeStyle = "#333";
+  ctx.lineWidth = 1; // Thicker lines for better visibility
 
-    // Vertical lines
-    for (let x = 0; x <= tetrisGame.boardWidth; x++) {
-        ctx.beginPath();
-        ctx.moveTo(x * blockSize, 0);
-        ctx.lineTo(x * blockSize, canvas.height);
-        ctx.stroke();
+  // Vertical lines
+  for (let x = 0; x <= tetrisGame.boardWidth; x++) {
+    ctx.beginPath();
+    ctx.moveTo(x * blockSize, 0);
+    ctx.lineTo(x * blockSize, canvas.height);
+    ctx.stroke();
+  }
+
+  // Horizontal lines
+  for (let y = 0; y <= board.length; y++) {
+    ctx.beginPath();
+    ctx.moveTo(0, y * blockSize);
+    ctx.lineTo(canvas.width, y * blockSize);
+    ctx.stroke();
+  }
+
+  // Draw placed blocks
+  for (let y = 0; y < board.length; y++) {
+    for (let x = 0; x < board[y].length; x++) {
+      if (board[y][x] !== 0) {
+        drawBlock(x, y, getBlockColor(board[y][x]));
+      }
     }
+  }
 
-    // Horizontal lines
-    for (let y = 0; y <= board.length; y++) {
-        ctx.beginPath();
-        ctx.moveTo(0, y * blockSize);
-        ctx.lineTo(canvas.width, y * blockSize);
-        ctx.stroke();
-    }
-
-    // Draw pieces
-    drawExistingPieces();
-    if (tetrisGame.currentPiece) drawPiece(tetrisGame.currentPiece);
-}
-
-function drawExistingPieces() {
-    const { ctx, board, blockSize } = tetrisGame;
-    for (let y = 0; y < board.length; y++) {
-        for (let x = 0; x < board[y].length; x++) {
-            if (board[y][x] !== 0) {
-                drawBlock(x, y, getBlockColor(board[y][x]));
-            }
-        }
-    }
-}
   // Draw current piece
   if (tetrisGame.currentPiece) {
     drawPiece(tetrisGame.currentPiece);
@@ -849,27 +815,24 @@ function drawExistingPieces() {
 }
 
 function drawBlock(x, y, color) {
-    const { ctx, blockSize } = tetrisGame;
-    const padding = 1;
+  if (!tetrisGame) return;
 
-    // Main block
-    ctx.fillStyle = color;
-    ctx.fillRect(
-        x * blockSize + padding,
-        y * blockSize + padding,
-        blockSize - padding * 2,
-        blockSize - padding * 2
-    );
+  const { ctx, blockSize } = tetrisGame;
+  const padding = Math.max(2, Math.floor(blockSize * 0.08)); // Larger padding for bigger blocks
 
-    // 3D effect
-    ctx.strokeStyle = "rgba(255,255,255,0.3)";
-    ctx.strokeRect(
-        x * blockSize + padding,
-        y * blockSize + padding,
-        blockSize - padding * 2,
-        blockSize - padding * 2
-    );
-}
+  // Main block with rounded corners effect
+  ctx.fillStyle = color;
+  ctx.fillRect(
+    x * blockSize + padding,
+    y * blockSize + padding,
+    blockSize - padding * 2,
+    blockSize - padding * 2
+  );
+
+  // Enhanced 3D effect for larger blocks
+  if (blockSize > 20) {
+    const effectSize = Math.max(2, Math.floor(blockSize * 0.12));
+
     // Highlight (top and left edges) - brighter for better visibility
     ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
     ctx.fillRect(
