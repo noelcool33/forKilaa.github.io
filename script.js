@@ -679,8 +679,42 @@ function loadSpotifyPlaylist(playlistNumber) {
 function initializeTetris() {
   const canvas = document.getElementById("tetris-canvas");
   if (!canvas) return;
-
+  
   const ctx = canvas.getContext("2d");
+  
+  // FIXED: Set ukuran canvas yang tetap dan wajar
+  canvas.width = 300;  // Lebar tetap
+  canvas.height = 500; // Tinggi tetap
+  
+  // FIXED: Block size tetap 30px (300 ÷ 10 = 30)
+  const blockSize = 30;
+  const boardWidth = 10;
+  const boardHeight = Math.floor(canvas.height / blockSize); // Sekitar 16 baris
+  
+  tetrisGame = {
+    canvas: canvas,
+    ctx: ctx,
+    board: createEmptyBoard(boardWidth, boardHeight),
+    currentPiece: null,
+    gameRunning: false,
+    dropTime: 0,
+    lastTime: 0,
+    dropInterval: 1000,
+    blockSize: blockSize,
+    boardWidth: boardWidth,
+    boardHeight: boardHeight,
+  };
+  
+  console.log(
+    "Canvas size:", canvas.width, "x", canvas.height,
+    "Block size:", blockSize,
+    "Board:", tetrisGame.boardWidth, "x", tetrisGame.boardHeight
+  );
+  
+  updateTetrisStats();
+  drawTetrisBoard();
+  addTetrisListeners();
+}
 
   // Calculate much larger canvas size
   const gameContainer = document.querySelector(".tetris-game");
