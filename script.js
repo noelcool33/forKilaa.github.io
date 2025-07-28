@@ -682,15 +682,48 @@ function initializeTetris() {
   
   const ctx = canvas.getContext("2d");
   
-  // FIXED: Set ukuran canvas yang tetap dan wajar
-  canvas.width = 300;  // Lebar tetap
-  canvas.height = 500; // Tinggi tetap
+  // Single, consistent canvas sizing logic
+  const gameContainer = document.querySelector(".tetris-game");
+  let canvasWidth, canvasHeight;
   
-  // FIXED: Block size tetap 30px (300 ÷ 10 = 30)
-  const blockSize = 30;
+  if (gameContainer) {
+    const containerRect = gameContainer.getBoundingClientRect();
+    
+    // Reasonable maximum dimensions with proper margins
+    const maxWidth = Math.min(containerRect.width - 40, 400); // Max 400px width
+    const maxHeight = Math.min(containerRect.height - 40, 600); // Max 600px height
+    
+    // Maintain Tetris aspect ratio (1:2)
+    const aspectRatio = 1 / 2;
+    canvasWidth = Math.min(maxWidth, maxHeight * aspectRatio);
+    canvasHeight = canvasWidth / aspectRatio;
+    
+    // If height exceeds maximum, adjust
+    if (canvasHeight > maxHeight) {
+      canvasHeight = maxHeight;
+      canvasWidth = canvasHeight * aspectRatio;
+    }
+    
+    // Ensure minimum reasonable size
+    canvasWidth = Math.max(canvasWidth, 300);
+    canvasHeight = Math.max(canvasHeight, 500);
+    
+  } else {
+    // Fallback dimensions
+    canvasWidth = 300;
+    canvasHeight = 500;
+  }
+  
+  // Set canvas dimensions
+  canvas.width = Math.floor(canvasWidth);
+  canvas.height = Math.floor(canvasHeight);
+  
+  // Calculate consistent block size
+  const blockSize = Math.floor(canvas.width / 10); // Always fit exactly 10 blocks
   const boardWidth = 10;
-  const boardHeight = Math.floor(canvas.height / blockSize); // Sekitar 16 baris
+  const boardHeight = Math.floor(canvas.height / blockSize);
   
+  // Initialize game state
   tetrisGame = {
     canvas: canvas,
     ctx: ctx,
@@ -716,78 +749,6 @@ function initializeTetris() {
   addTetrisListeners();
 }
 
-  // Calculate much larger canvas size
-  const gameContainer = document.querySelector(".tetris-game");
-  if (gameContainer) {
-    const containerRect = gameContainer.getBoundingClientRect();
-
-    // Much larger maximum dimensions - use almost all available space
-    const maxWidth = containerRect.width - 15; // Only 15px margin
-    const maxHeight = containerRect.height - 15; // Only 15px margin
-
-    // Maintain aspect ratio (approximately 1:2 for Tetris)
-    const aspectRatio = 1 / 2;
-    let canvasWidth = Math.min(maxWidth, maxHeight * aspectRatio);
-    let canvasHeight = canvasWidth / aspectRatio;
-
-    // If height is too tall, adjust based on height
-    if (canvasHeight > maxHeight) {
-      canvasHeight = maxHeight;
-      canvasWidth = canvasHeight * aspectRatio;
-    }
-
-    // Ensure minimum reasonable size
-    canvasWidth = Math.max(canvasWidth, 500);
-    canvasHeight = Math.max(canvasHeight, 600);
-
-    canvas.width = Math.floor(canvasWidth);
-    canvas.height = Math.floor(canvasHeight);
-
-    console.log(
-      "Container size:",
-      containerRect.width,
-      "x",
-      containerRect.height
-    );
-    console.log("Canvas size:", canvas.width, "x", canvas.height);
-  } else {
-    // Much larger fallback dimensions
-    canvas.width = 500; // Increased significantly
-    canvas.height = 600; // Increased significantly
-  }
-
-  // Calculate block size - ensure it's large enough to see clearly
-  const blockSize = Math.max(Math.floor(canvas.width / 10), 25); // Minimum 25px blocks
-  const boardHeight = Math.floor(canvas.height / blockSize);
-
-  tetrisGame = {
-    canvas: canvas,
-    ctx: ctx,
-    board: createEmptyBoard(10, boardHeight),
-    currentPiece: null,
-    gameRunning: false,
-    dropTime: 0,
-    lastTime: 0,
-    dropInterval: 1000,
-    blockSize: blockSize,
-    boardWidth: 10,
-    boardHeight: boardHeight,
-  };
-
-  console.log(
-    "Block size:",
-    blockSize,
-    "Board:",
-    tetrisGame.boardWidth,
-    "x",
-    tetrisGame.boardHeight
-  );
-
-  updateTetrisStats();
-  drawTetrisBoard();
-  addTetrisListeners();
-}
-
 function createEmptyBoard(width, height) {
   const board = [];
   for (let y = 0; y < height; y++) {
@@ -804,13 +765,13 @@ function drawTetrisBoard() {
 
   const { ctx, canvas, board, blockSize } = tetrisGame;
 
-  // Clear canvas with proper background
+  // Clear canvas
   ctx.fillStyle = "#0a0a0a";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Draw more visible grid lines for larger canvas
+  // Draw grid lines
   ctx.strokeStyle = "#333";
-  ctx.lineWidth = 1; // Thicker lines for better visibility
+  ctx.lineWidth = 1;
 
   // Vertical lines
   for (let x = 0; x <= tetrisGame.boardWidth; x++) {
@@ -842,19 +803,19 @@ function drawTetrisBoard() {
     drawPiece(tetrisGame.currentPiece);
   }
 
-  // Draw prominent border around play area
+  // Draw border
   ctx.strokeStyle = "#9bbc0f";
-  ctx.lineWidth = 4; // Much thicker border
-  ctx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
+  ctx.lineWidth = 3;
+  ctx.strokeRect(1, 1, canvas.width - 2, canvas.height - 2);
 }
 
 function drawBlock(x, y, color) {
   if (!tetrisGame) return;
 
   const { ctx, blockSize } = tetrisGame;
-  const padding = Math.max(2, Math.floor(blockSize * 0.08)); // Larger padding for bigger blocks
+  const padding = Math.max(1, Math.floor(blockSize * 0.05));
 
-  // Main block with rounded corners effect
+  // Main block
   ctx.fillStyle = color;
   ctx.fillRect(
     x * blockSize + padding,
@@ -863,12 +824,12 @@ function drawBlock(x, y, color) {
     blockSize - padding * 2
   );
 
-  // Enhanced 3D effect for larger blocks
-  if (blockSize > 20) {
-    const effectSize = Math.max(2, Math.floor(blockSize * 0.12));
+  // 3D effect for blocks larger than 15px
+  if (blockSize > 15) {
+    const effectSize = Math.max(1, Math.floor(blockSize * 0.1));
 
-    // Highlight (top and left edges) - brighter for better visibility
-    ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+    // Highlight (top and left edges)
+    ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
     ctx.fillRect(
       x * blockSize + padding,
       y * blockSize + padding,
@@ -882,21 +843,22 @@ function drawBlock(x, y, color) {
       blockSize - padding * 2
     );
 
-    // Shadow (bottom and right edges) - darker for better contrast
-    ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    // Shadow (bottom and right edges)
+    ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
     ctx.fillRect(
       x * blockSize + padding,
-      y * blockSize + blockSize - padding - effectSize,
+      (y + 1) * blockSize - padding - effectSize,
       blockSize - padding * 2,
       effectSize
     );
     ctx.fillRect(
-      x * blockSize + blockSize - padding - effectSize,
+      (x + 1) * blockSize - padding - effectSize,
       y * blockSize + padding,
       effectSize,
       blockSize - padding * 2
     );
-
+  }
+}
     // Inner border for more definition
     ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
     ctx.lineWidth = 1;
