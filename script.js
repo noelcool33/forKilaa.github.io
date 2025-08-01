@@ -231,11 +231,11 @@ function startTypewriter() {
 
 Happy Birthday KILLAAA!
 
-Hari ini saya ingin ko ngerasain semua hal positif dan keajaiban yang cuma bisa didapetin kalo kamu ada di dunia ini. Semoga segala keinginanmu tercapai. Tumbuh menjadi pribadi yang semakin dekat dengan Tuhan yah kilaa.
+Hari ini saya ingin ko merasakan semua hal positif dan keajaiban yang cuma bisa didapetin kalo ko ada di dunia ini. Semoga segala keinginanmu tercapai. Tumbuh menjadi pribadi yang semakin dekat dengan Tuhan yah kilaa.
 
-Terima kasih udah pernah hadir dengan menjadi teman yang sangat berharga buat saya. Kehadiran kamu bener-bener bikin hari-hari saya jadi lebih berarti dan menyenangkan. Apalagi, terkejut kita bisa keterima di beasiswa BCA, wkkkkk
+Terima kasih sudah pernah hadir dengan menjadi teman yang sangat berharga buat sa. Ko pu kehadiran benar-benar bikin sa punya hari-hari jadi lebih berarti dan menyenangkan. Apalagi, terkejut kita bisa keterima di beasiswa BCA, suatu kebtulan yang tidak terduga, wkkkkk
 
-Semoga di umur yang baru ini, kamu makin bahagia, makin sukses, dan tetap jadi pribadi yang luar biasa seperti sekarang.
+Semoga di umur yang baru ini, ko makin bahagia, makin sukses,makin cantik (walaupun udah cantikk poll), dan tetap jadi pribadi yang luar biasa seperti sekarang.
 
 Semangat terus ya! 🌟
 `;
@@ -273,10 +273,10 @@ function skipTypewriter() {
     clearInterval(typewriterInterval);
     const messageContent = document.querySelector(".message-content");
     if (messageContent) {
-      const fullMessage = `Hi,<br><br>Happy Birthday KILLAAA!<br><br>Hari ini saya ingin ko ngerasain semua hal positif dan keajaiban yang cuma bisa didapetin kalo kamu ada di dunia ini. Semoga segala keinginanmu tercapai. Tumbuh menjadi pribadi yang semakin dekat dengan Tuhan yah kilaa.<br></br>
+      const fullMessage = `Hi,<br><br>Happy Birthday KILLAAA!<br><br>Hari ini saya ingin ko ngerasain semua hal positif dan keajaiban yang cuma bisa didapetin kalo ko ada di dunia ini. Semoga segala keinginanmu tercapai. Tumbuh menjadi pribadi yang semakin dekat dengan Tuhan yah kilaa.<br></br>
 
-Terima kasih sudah pernah hadir dengan menjadi teman yang sangat berharga buat saya. Kehadiran mu bener-bener bikin hari-hari saya jadi lebih berarti dan menyenangkan. Apalagi, terkejut kita bisa keterima di beasiswa BCA, wkkkkk
-Semoga di umur yang baru ini, kamu makin bahagia, makin sukses, dan tetap jadi pribadi yang luar biasa seperti sekarang. <br><br>Semangat terus ya! 🌟`;
+Terima kasih sudah pernah hadir dengan menjadi teman yang sangat berharga buat saya. Kehadiran mu bener-bener bikin hari-hari saya jadi lebih berarti dan menyenangkan. Apalagi, terkejut kita bisa keterima di beasiswa BCA, suatu kebtulan yang tidak terduga, wkkkkk
+Semoga di umur yang baru ini, ko makin bahagia, makin sukses, makin cantik (walaupun udah cantikk poll), dan tetap jadi pribadi yang luar biasa seperti sekarang. <br><br>Semangat terus ya! 🌟`;
       messageContent.innerHTML = fullMessage;
       isTyping = false;
       messageContent.scrollTop = messageContent.scrollHeight;
@@ -406,7 +406,7 @@ function startPhotoShow() {
       progressDiv.textContent = `GET READY... ${countdown}`;
     } else {
       clearInterval(countdownInterval);
-      progressDiv.textContent = "SMILE! 📸";
+      progressDiv.textContent = "SMILE! 📸😁";
       startPhotoCapture(photos);
     }
   }, 1000);
