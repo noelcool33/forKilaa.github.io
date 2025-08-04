@@ -237,6 +237,11 @@ Terima kasih sudah pernah hadir dengan menjadi teman yang sangat berharga buat s
 
 Semoga di umur yang baru ini, ko makin bahagia, makin sukses,makin cantik (walaupun udah cantikk poll), dan tetap jadi pribadi yang luar biasa seperti sekarang.
 
+ada kado berupa ayat alkitab buat ko, semoga suka🙌
+
+Mazmur 91:16 TB
+Dengan panjang umur akan Kukenyangkan dia, dan akan Kuperlihatkan kepadanya keselamatan dari pada-Ku
+
 Semangat terus ya! 🌟
 `;
 
@@ -276,7 +281,8 @@ function skipTypewriter() {
       const fullMessage = `Hi,<br><br>Happy Birthday KILLAAA!<br><br>Hari ini saya ingin ko ngerasain semua hal positif dan keajaiban yang cuma bisa didapetin kalo ko ada di dunia ini. Semoga segala keinginanmu tercapai. Tumbuh menjadi pribadi yang semakin dekat dengan Tuhan yah kilaa.<br></br>
 
 Terima kasih sudah pernah hadir dengan menjadi teman yang sangat berharga buat saya. Kehadiran mu bener-bener bikin hari-hari saya jadi lebih berarti dan menyenangkan. Apalagi, terkejut kita bisa keterima di beasiswa BCA, suatu kebtulan yang tidak terduga, wkkkkk
-Semoga di umur yang baru ini, ko makin bahagia, makin sukses, makin cantik (walaupun udah cantikk poll), dan tetap jadi pribadi yang luar biasa seperti sekarang. <br><br>Semangat terus ya! 🌟`;
+Semoga di umur yang baru ini, ko makin bahagia, makin sukses, makin cantik (walaupun udah cantikk poll), dan tetap jadi pribadi yang luar biasa seperti sekarang. <br><br <br><br> ada kado berupa ayat alkitab buat ko, semoga suka🙌 <br><br> Mazmur 91:16 TB <br><br> Dengan panjang umur akan Kukenyangkan dia, dan akan Kuperlihatkan kepadanya keselamatan dari pada-Ku
+<br><br>Semangat terus ya! 🌟`;
       messageContent.innerHTML = fullMessage;
       isTyping = false;
       messageContent.scrollTop = messageContent.scrollHeight;
@@ -348,7 +354,7 @@ function startPhotoShow() {
       image: "./images/photo4.jpg",
     },
     {
-      text: " gw ada pantunnn nihh 🥰",
+      text: " sa ada pantunnn nihh 🥰",
       image: "./images/photo5.jpg",
     },
     {
@@ -637,17 +643,17 @@ function loadSpotifyPlaylist(playlistNumber) {
     2: {
       // Ganti dengan playlist kedua kamu
       embedUrl:
-        "https://open.spotify.com/embed/playlist/5vibGSfcGuKPTva1bqi6PA?si=cd28e5b19f144955",
+        "https://open.spotify.com/embed/playlist/2xBl5QxXgRvB1LTpNTObSD?si=715ef9a6713e4366",
       name: "Favorit",
-      description: "Koleksi lagu cinta terbaik untuk ko, hehehe ❤️",
+      description: "Koleksi lagu rohani untuk ko, hehehe ❤️",
     },
     3: {
       // Ganti dengan playlist ketiga kamu
       embedUrl:
-        "https://open.spotify.com/embed/playlist/7bDjTOvBD8oCrRuhwukKeD?si=45fa82af8ea04315",
+        "https://open.spotify.com/embed/playlist/5vibGSfcGuKPTva1bqi6PA?si=f609a3c01e1b49fd",
       name: "Love",
       description:
-        "Waktu itu saya pernah minta list lagu paporitmu, tapi katanya jarang dengar lagu.. it's okeey semoga suka dengan playlist ini yah kilaa 🌟",
+        "Koleksi lagu cinta terbaik untuk ko 😅",
     },
   };
 
