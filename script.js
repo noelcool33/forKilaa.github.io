@@ -227,8 +227,9 @@ function startTypewriter() {
   const messageContent = document.querySelector(".message-content");
   if (!messageContent) return;
 
-  const fullMessage = `Hi,
-
+  const fullMessage = ` 11 Agustus 2025.
+ 
+  Hi,
 Happy Birthday KILLAAA!
 
 Hari ini saya ingin ko merasakan semua hal positif dan keajaiban yang cuma bisa didapetin kalo ko ada di dunia ini. Semoga segala keinginanmu tercapai. Tumbuh menjadi pribadi yang semakin dekat dengan Tuhan yah kilaa.
@@ -278,7 +279,7 @@ function skipTypewriter() {
     clearInterval(typewriterInterval);
     const messageContent = document.querySelector(".message-content");
     if (messageContent) {
-      const fullMessage = `Hi,<br><br>Happy Birthday KILLAAA!<br><br>Hari ini saya ingin ko ngerasain semua hal positif dan keajaiban yang cuma bisa didapetin kalo ko ada di dunia ini. Semoga segala keinginanmu tercapai. Tumbuh menjadi pribadi yang semakin dekat dengan Tuhan yah kilaa.<br></br>
+      const fullMessage = `11 Agusutus 2025 <br><br><br><br>Hi,<br><br>Happy Birthday KILLAAA!<br><br>Hari ini saya ingin ko ngerasain semua hal positif dan keajaiban yang cuma bisa didapetin kalo ko ada di dunia ini. Semoga segala keinginanmu tercapai. Tumbuh menjadi pribadi yang semakin dekat dengan Tuhan yah kilaa.<br></br>
 
 Terima kasih sudah pernah hadir dengan menjadi teman yang sangat berharga buat saya. Kehadiran mu bener-bener bikin hari-hari saya jadi lebih berarti dan menyenangkan. Apalagi, terkejut kita bisa keterima di beasiswa BCA, suatu kebtulan yang tidak terduga, wkkkkk
 Semoga di umur yang baru ini, ko makin bahagia, makin sukses, makin cantik (walaupun udah cantikk poll), dan tetap jadi pribadi yang luar biasa seperti sekarang. <br><br <br><br> ada kado berupa ayat alkitab buat ko, semoga suka🙌 <br><br> Mazmur 91:16 TB <br><br> Dengan panjang umur akan Kukenyangkan dia, dan akan Kuperlihatkan kepadanya keselamatan dari pada-Ku
